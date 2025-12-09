@@ -13,6 +13,11 @@ import PrivateRoute from "../components/PrivateRoute";
 import ManageUsers from "../pages/dashboard/ManageUsers";
 import AllLoansAdmin from "../pages/dashboard/AllLoansAdmin";
 import LoanApplicationsAdmin from "../pages/dashboard/LoanApplicationsAdmin";
+import AddLoan from "../pages/dashboard/AddLoan";
+import ManageLoans from "../pages/dashboard/ManageLoans";
+import PendingApplications from "../pages/dashboard/PendingApplications";
+import ApprovedApplications from "../pages/dashboard/ApprovedApplications";
+import MyProfile from "../pages/dashboard/MyProfile";
 
 export const router = createBrowserRouter([
   {
@@ -66,6 +71,26 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/loan-applications",
         element: <PrivateRoute><LoanApplicationsAdmin /></PrivateRoute>,
+      },
+      {
+        path: "/dashboard/add-loan",
+        element: <PrivateRoute><AddLoan /></PrivateRoute>,
+      },
+      {
+        path: "/dashboard/manage-loans",
+        element: <PrivateRoute><ManageLoans /></PrivateRoute>,
+      },
+      {
+        path: "/dashboard/pending-applications",
+        element: <PrivateRoute><PendingApplications /></PrivateRoute>,
+      },
+      {
+        path: "/dashboard/approved-applications",
+        element: <PrivateRoute><ApprovedApplications /></PrivateRoute>,
+      },
+      {
+        path: "/dashboard/my-profile",
+        element: <PrivateRoute><MyProfile /></PrivateRoute>,
       },
     ],
   },

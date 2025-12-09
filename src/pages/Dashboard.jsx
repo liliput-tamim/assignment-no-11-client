@@ -20,22 +20,34 @@ const Dashboard = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {userRole === "manager" && (
           <>
-            <Link to="/dashboard/manage-users" className="card bg-primary text-white shadow-xl hover:shadow-2xl transition-shadow">
+            <Link to="/dashboard/add-loan" className="card bg-primary text-white shadow-xl hover:shadow-2xl transition-shadow">
               <div className="card-body">
-                <h2 className="card-title">Manage Users</h2>
-                <p>Manage user roles and permissions</p>
+                <h2 className="card-title">Add Loan</h2>
+                <p>Create new loan listing</p>
               </div>
             </Link>
-            <Link to="/dashboard/all-loans" className="card bg-secondary text-white shadow-xl hover:shadow-2xl transition-shadow">
+            <Link to="/dashboard/manage-loans" className="card bg-secondary text-white shadow-xl hover:shadow-2xl transition-shadow">
               <div className="card-body">
-                <h2 className="card-title">All Loans</h2>
-                <p>Manage all loan listings</p>
+                <h2 className="card-title">Manage Loans</h2>
+                <p>Edit and delete your loans</p>
               </div>
             </Link>
-            <Link to="/dashboard/loan-applications" className="card bg-accent text-white shadow-xl hover:shadow-2xl transition-shadow">
+            <Link to="/dashboard/pending-applications" className="card bg-accent text-white shadow-xl hover:shadow-2xl transition-shadow">
               <div className="card-body">
-                <h2 className="card-title">Loan Applications</h2>
-                <p>View and manage applications</p>
+                <h2 className="card-title">Pending Applications</h2>
+                <p>Review pending loan requests</p>
+              </div>
+            </Link>
+            <Link to="/dashboard/approved-applications" className="card bg-success text-white shadow-xl hover:shadow-2xl transition-shadow">
+              <div className="card-body">
+                <h2 className="card-title">Approved Applications</h2>
+                <p>View approved loans</p>
+              </div>
+            </Link>
+            <Link to="/dashboard/my-profile" className="card bg-info text-white shadow-xl hover:shadow-2xl transition-shadow">
+              <div className="card-body">
+                <h2 className="card-title">My Profile</h2>
+                <p>View your profile information</p>
               </div>
             </Link>
           </>
