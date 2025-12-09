@@ -30,7 +30,7 @@ const Navbar = () => {
   );
 
   return (
-    <nav className="navbar bg-base-100 shadow-lg px-4">
+    <nav className="navbar bg-base-100 shadow-lg px-4 sticky top-0 z-50 backdrop-blur-sm bg-opacity-95">
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -42,7 +42,7 @@ const Navbar = () => {
             {navLinks}
           </ul>
         </div>
-        <Link to="/" className="btn btn-ghost text-xl">LoanLink</Link>
+        <Link to="/" className="btn btn-ghost text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent hover:scale-105 transition-smooth">LoanLink</Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
@@ -50,7 +50,7 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="navbar-end gap-2">
-        <button onClick={toggleTheme} className="btn btn-ghost btn-circle">
+        <button onClick={toggleTheme} className="btn btn-ghost btn-circle hover:rotate-180 transition-all duration-500">
           {theme === "light" ? "🌙" : "☀️"}
         </button>
         {user ? (
@@ -66,8 +66,8 @@ const Navbar = () => {
           </>
         ) : (
           <>
-            <Link to="/login" className="btn btn-sm">Login</Link>
-            <Link to="/register" className="btn btn-sm btn-primary">Register</Link>
+            <Link to="/login" className="btn btn-sm btn-outline btn-primary">Login</Link>
+            <Link to="/register" className="btn btn-sm btn-primary shadow-lg hover:shadow-xl transition-smooth">Register</Link>
           </>
         )}
       </div>

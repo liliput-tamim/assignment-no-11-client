@@ -27,34 +27,34 @@ const Dashboard = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6">Dashboard</h1>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {userRole === "manager" && (
           <>
-            <Link to="/dashboard/add-loan" className="card bg-primary text-white shadow-xl hover:shadow-2xl transition-shadow">
+            <Link to="/dashboard/add-loan" className="card card-equal bg-gradient-to-br from-primary to-primary-focus text-white shadow-xl hover:shadow-2xl transition-smooth hover:-translate-y-2">
               <div className="card-body">
                 <h2 className="card-title">Add Loan</h2>
                 <p>Create new loan listing</p>
               </div>
             </Link>
-            <Link to="/dashboard/manage-loans" className="card bg-secondary text-white shadow-xl hover:shadow-2xl transition-shadow">
+            <Link to="/dashboard/manage-loans" className="card card-equal bg-gradient-to-br from-secondary to-secondary-focus text-white shadow-xl hover:shadow-2xl transition-smooth hover:-translate-y-2">
               <div className="card-body">
                 <h2 className="card-title">Manage Loans</h2>
                 <p>Edit and delete your loans</p>
               </div>
             </Link>
-            <Link to="/dashboard/pending-applications" className="card bg-accent text-white shadow-xl hover:shadow-2xl transition-shadow">
+            <Link to="/dashboard/pending-applications" className="card card-equal bg-gradient-to-br from-accent to-accent-focus text-white shadow-xl hover:shadow-2xl transition-smooth hover:-translate-y-2">
               <div className="card-body">
                 <h2 className="card-title">Pending Applications</h2>
                 <p>Review pending loan requests</p>
               </div>
             </Link>
-            <Link to="/dashboard/approved-applications" className="card bg-success text-white shadow-xl hover:shadow-2xl transition-shadow">
+            <Link to="/dashboard/approved-applications" className="card card-equal bg-gradient-to-br from-success to-success-focus text-white shadow-xl hover:shadow-2xl transition-smooth hover:-translate-y-2">
               <div className="card-body">
                 <h2 className="card-title">Approved Applications</h2>
                 <p>View approved loans</p>
               </div>
             </Link>
-            <Link to="/dashboard/profile" className="card bg-info text-white shadow-xl hover:shadow-2xl transition-shadow">
+            <Link to="/dashboard/profile" className="card card-equal bg-gradient-to-br from-info to-info-focus text-white shadow-xl hover:shadow-2xl transition-smooth hover:-translate-y-2">
               <div className="card-body">
                 <h2 className="card-title">My Profile</h2>
                 <p>View your profile information</p>
@@ -64,13 +64,13 @@ const Dashboard = () => {
         )}
         {userRole === "borrower" && (
           <>
-            <Link to="/dashboard/my-loans" className="card bg-primary text-white shadow-xl hover:shadow-2xl transition-shadow">
+            <Link to="/dashboard/my-loans" className="card card-equal bg-gradient-to-br from-primary to-primary-focus text-white shadow-xl hover:shadow-2xl transition-smooth hover:-translate-y-2">
               <div className="card-body">
                 <h2 className="card-title">My Loans</h2>
                 <p>View your loan applications</p>
               </div>
             </Link>
-            <Link to="/dashboard/profile" className="card bg-secondary text-white shadow-xl hover:shadow-2xl transition-shadow">
+            <Link to="/dashboard/profile" className="card card-equal bg-gradient-to-br from-secondary to-secondary-focus text-white shadow-xl hover:shadow-2xl transition-smooth hover:-translate-y-2">
               <div className="card-body">
                 <h2 className="card-title">My Profile</h2>
                 <p>View your profile information</p>
