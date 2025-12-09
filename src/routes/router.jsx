@@ -18,6 +18,9 @@ import ManageLoans from "../pages/dashboard/ManageLoans";
 import PendingApplications from "../pages/dashboard/PendingApplications";
 import ApprovedApplications from "../pages/dashboard/ApprovedApplications";
 import MyProfile from "../pages/dashboard/MyProfile";
+import MyLoans from "../pages/dashboard/MyLoans";
+import Profile from "../pages/dashboard/Profile";
+import NotFound from "../pages/NotFound";
 
 export const router = createBrowserRouter([
   {
@@ -91,6 +94,18 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/my-profile",
         element: <PrivateRoute><MyProfile /></PrivateRoute>,
+      },
+      {
+        path: "/dashboard/my-loans",
+        element: <PrivateRoute><MyLoans /></PrivateRoute>,
+      },
+      {
+        path: "/dashboard/profile",
+        element: <PrivateRoute><Profile /></PrivateRoute>,
+      },
+      {
+        path: "*",
+        element: <NotFound />,
       },
     ],
   },

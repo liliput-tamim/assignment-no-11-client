@@ -5,14 +5,24 @@ import { AuthContext } from "../context/AuthContext";
 const Dashboard = () => {
   const { user } = useContext(AuthContext);
   const [userRole, setUserRole] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (user) {
       fetch(`http://localhost:4000/users/${user.email}`)
         .then(res => res.json())
-        .then(data => setUserRole(data?.role));
+        .then(data => {
+          setUserRole(data?.role);
+          setLoading(false);
+        });
     }
   }, [user]);
+
+  if (loading) {
+    return <div className="flex justify-center items-center min-h-screen">
+      <span className="loading loading-spinner loading-lg"></span>
+    </div>;
+  }
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -44,7 +54,7 @@ const Dashboard = () => {
                 <p>View approved loans</p>
               </div>
             </Link>
-            <Link to="/dashboard/my-profile" className="card bg-info text-white shadow-xl hover:shadow-2xl transition-shadow">
+            <Link to="/dashboard/profile" className="card bg-info text-white shadow-xl hover:shadow-2xl transition-shadow">
               <div className="card-body">
                 <h2 className="card-title">My Profile</h2>
                 <p>View your profile information</p>
@@ -53,12 +63,20 @@ const Dashboard = () => {
           </>
         )}
         {userRole === "borrower" && (
-          <div className="card bg-base-200 shadow-xl">
-            <div className="card-body">
-              <h2 className="card-title">My Loans</h2>
-              <p>View your loan applications</p>
-            </div>
-          </div>
+          <>
+            <Link to="/dashboard/my-loans" className="card bg-primary text-white shadow-xl hover:shadow-2xl transition-shadow">
+              <div className="card-body">
+                <h2 className="card-title">My Loans</h2>
+                <p>View your loan applications</p>
+              </div>
+            </Link>
+            <Link to="/dashboard/profile" className="card bg-secondary text-white shadow-xl hover:shadow-2xl transition-shadow">
+              <div className="card-body">
+                <h2 className="card-title">My Profile</h2>
+                <p>View your profile information</p>
+              </div>
+            </Link>
+          </>
         )}
       </div>
     </div>
