@@ -4,15 +4,44 @@ import { AuthContext } from "../context/AuthContext";
 import { toast } from "react-toastify";
 
 const Register = () => {
-  const { registerUser, googleLogin } = useContext(AuthContext);
+  const { registerUser, googleLogin, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [photoURL, setPhotoURL] = useState("");
+  const [role, setRole] = useState("borrower");
   const [password, setPassword] = useState("");
+
+  const validatePassword = (password) => {
+    if (password.length < 6) {
+      return "Password must be at least 6 characters long";
+    }
+    if (!/[A-Z]/.test(password)) {
+      return "Password must contain at least one uppercase letter";
+    }
+    if (!/[a-z]/.test(password)) {
+      return "Password must contain at least one lowercase letter";
+    }
+    return null;
+  };
 
   const handleRegister = (e) => {
     e.preventDefault();
-    registerUser(email, password)
-      .then(() => {
+    
+    const passwordError = validatePassword(password);
+    if (passwordError) {
+      toast.error(passwordError);
+      return;
+    }
+
+    registerUser(email, password, name, photoURL)
+      .then((result) => {
+        fetch("http://localhost:4000/users", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, name, photoURL, role, uid: result.user.uid })
+        });
+        setUser(result.user);
         toast.success("Registration successful!");
         navigate("/");
       })
@@ -40,6 +69,18 @@ const Register = () => {
           <form onSubmit={handleRegister} className="space-y-4">
             <div className="form-control">
               <label className="label">
+                <span className="label-text">Name</span>
+              </label>
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="input input-bordered"
+                required
+              />
+            </div>
+            <div className="form-control">
+              <label className="label">
                 <span className="label-text">Email</span>
               </label>
               <input
@@ -49,6 +90,32 @@ const Register = () => {
                 className="input input-bordered"
                 required
               />
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Photo URL</span>
+              </label>
+              <input
+                type="url"
+                value={photoURL}
+                onChange={(e) => setPhotoURL(e.target.value)}
+                className="input input-bordered"
+                required
+              />
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Role</span>
+              </label>
+              <select
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+                className="select select-bordered"
+                required
+              >
+                <option value="borrower">Borrower</option>
+                <option value="manager">Manager</option>
+              </select>
             </div>
             <div className="form-control">
               <label className="label">
