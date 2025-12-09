@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link, NavLink } from "react-router";
+import { AuthContext } from "../context/AuthContext";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
   const [theme, setTheme] = useState("light");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { user, logoutUser } = useContext(AuthContext);
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
@@ -17,13 +19,13 @@ const Navbar = () => {
     <>
       <li><NavLink to="/">Home</NavLink></li>
       <li><NavLink to="/all-loans">All-Loans</NavLink></li>
-      {!isLoggedIn && (
+      {!user && (
         <>
           <li><NavLink to="/about">About Us</NavLink></li>
           <li><NavLink to="/contact">Contact</NavLink></li>
         </>
       )}
-      {isLoggedIn && <li><NavLink to="/dashboard">Dashboard</NavLink></li>}
+      {user && <li><NavLink to="/dashboard">Dashboard</NavLink></li>}
     </>
   );
 
@@ -51,14 +53,16 @@ const Navbar = () => {
         <button onClick={toggleTheme} className="btn btn-ghost btn-circle">
           {theme === "light" ? "🌙" : "☀️"}
         </button>
-        {isLoggedIn ? (
+        {user ? (
           <>
             <div className="avatar">
               <div className="w-10 rounded-full">
-                <img src="https://via.placeholder.com/40" alt="User" />
+                <img src={user.photoURL || "https://via.placeholder.com/40"} alt="User" />
               </div>
             </div>
-            <button className="btn btn-sm">Logout</button>
+            <button onClick={() => {
+              logoutUser().then(() => toast.success("Logged out successfully!"));
+            }} className="btn btn-sm">Logout</button>
           </>
         ) : (
           <>
