@@ -21,16 +21,16 @@ const AllLoans = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.05 }}
-            className="card card-equal bg-base-100 shadow-xl hover:shadow-2xl transition-smooth hover:-translate-y-2"
+            className="card bg-base-100 shadow-xl"
           >
-            <figure><img src={loan.image} alt={loan.title} className="img-standard" /></figure>
+            <figure><img src={loan.image} alt={loan.title} className="h-48 w-full object-cover" /></figure>
             <div className="card-body">
               <h2 className="card-title">{loan.title}</h2>
               <p className="text-sm"><span className="font-semibold">Category:</span> {loan.category}</p>
               <p className="text-sm"><span className="font-semibold">Interest:</span> {loan.interestRate}%</p>
               <p className="text-sm"><span className="font-semibold">Max Loan:</span> ${loan.maxLoan}</p>
               <div className="card-actions justify-end mt-4">
-                <Link to={`/loan/${loan._id}`} className="btn btn-primary btn-sm shadow-md hover:shadow-lg transition-smooth">View Details</Link>
+                <Link to={`/loan/${loan._id}`} className="btn btn-primary btn-sm">View Details</Link>
               </div>
             </div>
           </motion.div>

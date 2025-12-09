@@ -83,15 +83,15 @@ const Home = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="card card-equal bg-base-100 shadow-xl hover:shadow-2xl transition-smooth hover:-translate-y-2"
+              className="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow"
             >
-              <figure><img src={loan.image} alt={loan.title} className="img-standard" /></figure>
+              <figure><img src={loan.image} alt={loan.title} className="h-48 w-full object-cover" /></figure>
               <div className="card-body">
                 <h3 className="card-title">{loan.title}</h3>
                 <p>{loan.description?.substring(0, 80)}...</p>
                 <p className="font-semibold text-primary">Max Loan: ${loan.maxLoan}</p>
                 <div className="card-actions justify-end">
-                  <Link to={`/loan/${loan._id}`} className="btn btn-primary btn-sm shadow-md hover:shadow-lg transition-smooth">View Details</Link>
+                  <Link to={`/loan/${loan._id}`} className="btn btn-primary btn-sm">View Details</Link>
                 </div>
               </div>
             </motion.div>
