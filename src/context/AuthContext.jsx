@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import { auth } from "../firebase/firebase.config";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut, updateProfile } from "firebase/auth";
+import Cookies from "js-cookie";
 
 export const AuthContext = createContext();
 
@@ -33,12 +34,19 @@ const AuthProvider = ({ children }) => {
 
   const logoutUser = () => {
     setLoading(true);
+    Cookies.remove('authToken');
     return signOut(auth);
   };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
+      if (currentUser) {
+        const token = await currentUser.getIdToken();
+        Cookies.set('authToken', token, { expires: 7 });
+      } else {
+        Cookies.remove('authToken');
+      }
       setLoading(false);
     });
     return () => unsubscribe();
