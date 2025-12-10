@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router";
 import MainLayout from "../layouts/MainLayout";
+import DashboardLayout from "../layouts/DashboardLayout";
 import Home from "../pages/Home";
 import AllLoans from "../pages/AllLoans";
 import About from "../pages/About";
@@ -52,10 +53,6 @@ export const router = createBrowserRouter([
         element: <Register />,
       },
       {
-        path: "/dashboard",
-        element: <Dashboard />,
-      },
-      {
         path: "/loan/:id",
         element: <PrivateRoute><LoanDetails /></PrivateRoute>,
       },
@@ -63,45 +60,55 @@ export const router = createBrowserRouter([
         path: "/apply",
         element: <PrivateRoute><LoanApplication /></PrivateRoute>,
       },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: <PrivateRoute><DashboardLayout /></PrivateRoute>,
+    children: [
+      {
+        path: "/dashboard",
+        element: <Dashboard />,
+      },
       {
         path: "/dashboard/manage-users",
-        element: <PrivateRoute><ManageUsers /></PrivateRoute>,
+        element: <ManageUsers />,
       },
       {
         path: "/dashboard/all-loans",
-        element: <PrivateRoute><AllLoansAdmin /></PrivateRoute>,
+        element: <AllLoansAdmin />,
       },
       {
         path: "/dashboard/loan-applications",
-        element: <PrivateRoute><LoanApplicationsAdmin /></PrivateRoute>,
+        element: <LoanApplicationsAdmin />,
       },
       {
         path: "/dashboard/add-loan",
-        element: <PrivateRoute><AddLoan /></PrivateRoute>,
+        element: <AddLoan />,
       },
       {
         path: "/dashboard/manage-loans",
-        element: <PrivateRoute><ManageLoans /></PrivateRoute>,
+        element: <ManageLoans />,
       },
       {
         path: "/dashboard/pending-applications",
-        element: <PrivateRoute><PendingApplications /></PrivateRoute>,
+        element: <PendingApplications />,
       },
       {
         path: "/dashboard/approved-applications",
-        element: <PrivateRoute><ApprovedApplications /></PrivateRoute>,
+        element: <ApprovedApplications />,
       },
       {
         path: "/dashboard/my-profile",
-        element: <PrivateRoute><MyProfile /></PrivateRoute>,
+        element: <MyProfile />,
       },
       {
         path: "/dashboard/my-loans",
-        element: <PrivateRoute><MyLoans /></PrivateRoute>,
+        element: <MyLoans />,
       },
       {
         path: "/dashboard/profile",
-        element: <PrivateRoute><Profile /></PrivateRoute>,
+        element: <Profile />,
       },
       {
         path: "*",
