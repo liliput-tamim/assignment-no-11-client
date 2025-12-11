@@ -14,33 +14,87 @@ const ManageLoans = () => {
 
   const fetchLoans = () => {
     fetch(`http://localhost:4000/loans`)
-      .then(res => res.json())
-      .then(data => setLoans(data));
+      .then(res => {
+        if (!res.ok) {
+          throw new Error('Failed to fetch loans');
+        }
+        return res.json();
+      })
+      .then(data => setLoans(data))
+      .catch(error => {
+        console.error('Fetch error:', error);
+        toast.error("Failed to load loans");
+      });
   };
 
   const handleDelete = (id) => {
     if (confirm("Are you sure you want to delete this loan?")) {
       fetch(`http://localhost:4000/loans/${id}`, { method: "DELETE" })
-        .then(res => res.json())
+        .then(res => {
+          if (!res.ok) {
+            throw new Error('Failed to delete loan');
+          }
+          return res.json();
+        })
         .then(() => {
-          toast.success("Loan deleted!");
+          toast.success("Loan deleted successfully!");
           fetchLoans();
+        })
+        .catch(error => {
+          console.error('Delete error:', error);
+          toast.error("Failed to delete loan. Please try again.");
         });
     }
   };
 
   const handleUpdate = (e) => {
     e.preventDefault();
+    
+    const updatedLoan = {
+      title: editLoan.title?.trim(),
+      description: editLoan.description?.trim(),
+      interestRate: parseFloat(editLoan.interestRate),
+      category: editLoan.category?.trim(),
+      maxLoan: parseFloat(editLoan.maxLoan),
+      image: editLoan.image?.trim()
+    };
+    
+    // Validate required fields
+    if (!updatedLoan.title || !updatedLoan.description || !updatedLoan.category || !updatedLoan.image) {
+      toast.error("Please fill all required fields");
+      return;
+    }
+    
+    if (isNaN(updatedLoan.interestRate) || isNaN(updatedLoan.maxLoan)) {
+      toast.error("Interest rate and max loan must be valid numbers");
+      return;
+    }
+    
+    console.log('Updating loan:', updatedLoan);
+    
     fetch(`http://localhost:4000/loans/${editLoan._id}`, {
-      method: "PATCH",
+      method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(editLoan)
+      body: JSON.stringify(updatedLoan)
     })
-      .then(res => res.json())
-      .then(() => {
-        toast.success("Loan updated!");
+      .then(res => {
+        console.log('Response status:', res.status);
+        if (!res.ok) {
+          return res.json().then(errorData => {
+            throw new Error(errorData.error || 'Update failed');
+          });
+        }
+        return res.json();
+      })
+      .then((data) => {
+        console.log('Update successful:', data);
+        toast.success("Loan updated successfully!");
         setEditLoan(null);
         fetchLoans();
+      })
+      .catch(error => {
+        console.error('Update error:', error);
+        toast.error(`Update failed: ${error.message}`);
       });
   };
 
@@ -120,7 +174,19 @@ const ManageLoans = () => {
               </div>
               <div className="form-control">
                 <label className="label"><span className="label-text">Image URL</span></label>
-                <input type="url" value={editLoan.image} onChange={(e) => setEditLoan({...editLoan, image: e.target.value})} className="input input-bordered" required />
+                <input 
+                  type="url" 
+                  value={editLoan.image || ''} 
+                  onChange={(e) => setEditLoan({...editLoan, image: e.target.value})} 
+                  className="input input-bordered" 
+                  placeholder="https://example.com/image.jpg"
+                  required 
+                />
+                {editLoan.image && (
+                  <div className="mt-2">
+                    <img src={editLoan.image} alt="Preview" className="w-20 h-20 object-cover rounded" onError={(e) => e.target.style.display = 'none'} />
+                  </div>
+                )}
               </div>
               <div className="modal-action">
                 <button type="submit" className="btn btn-primary">Save</button>
