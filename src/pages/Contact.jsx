@@ -177,8 +177,25 @@ const Contact = () => {
                     <p className="text-gray-600">Dhaka, Bangladesh</p>
                   </div>
                   <div className="mt-4">
-                    <div className="bg-gray-200 h-32 rounded-lg flex items-center justify-center">
-                      <span className="text-gray-500">🗺️ Interactive Map</span>
+                    <iframe 
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.906193362!2d90.39744831498!3d23.750895084588678!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b8b087026b81%3A0x8fa563bbdd5904c2!2sDhaka%2C%20Bangladesh!5e0!3m2!1sen!2sbd!4v1635789012345!5m2!1sen!2sbd"
+                      width="100%" 
+                      height="200" 
+                      style={{ border: 0, borderRadius: '8px' }}
+                      allowFullScreen="" 
+                      loading="lazy" 
+                      referrerPolicy="no-referrer-when-downgrade"
+                      title="LoanLink Office Location"
+                    ></iframe>
+                    <div className="mt-2 text-center">
+                      <a 
+                        href="https://maps.google.com/?q=Dhaka,Bangladesh" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="text-blue-600 hover:text-blue-800 text-sm font-medium"
+                      >
+                        🗺️ View in Google Maps
+                      </a>
                     </div>
                   </div>
                 </div>
