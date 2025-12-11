@@ -13,7 +13,7 @@ const ManageLoans = () => {
   }, [user]);
 
   const fetchLoans = () => {
-    fetch(`http://localhost:4000/loans?createdBy=${user.email}`)
+    fetch(`http://localhost:4000/loans`)
       .then(res => res.json())
       .then(data => setLoans(data));
   };

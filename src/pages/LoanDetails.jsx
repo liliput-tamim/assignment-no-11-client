@@ -53,11 +53,13 @@ const LoanDetails = () => {
           
           <div className="card bg-base-200 shadow-lg p-6">
             <h3 className="text-xl font-semibold mb-4">Available EMI Plans</h3>
-            {loan.emiPlans?.map((plan, index) => (
-              <p key={index} className="mb-2">
-                <span className="font-semibold">{plan.months} months:</span> ${plan.monthlyPayment}/month
-              </p>
-            )) || (
+            {Array.isArray(loan.emiPlans) && loan.emiPlans.length > 0 ? (
+              loan.emiPlans.map((plan, index) => (
+                <p key={index} className="mb-2">
+                  <span className="font-semibold">{plan.months} months:</span> ${plan.monthlyPayment}/month
+                </p>
+              ))
+            ) : (
               <>
                 <p className="mb-2"><span className="font-semibold">6 months:</span> ${(loan.maxLoan * (1 + loan.interestRate / 100) / 6).toFixed(2)}/month</p>
                 <p className="mb-2"><span className="font-semibold">12 months:</span> ${(loan.maxLoan * (1 + loan.interestRate / 100) / 12).toFixed(2)}/month</p>
