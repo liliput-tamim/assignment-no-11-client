@@ -122,41 +122,43 @@ const Contact = () => {
             </div>
 
             {/* Contact Information */}
-            <div className="space-y-6">
+            <div className="space-y-4">
               {/* Primary Contact */}
-              <div className="card bg-white shadow-xl" style={{ borderRadius: '16px' }}>
-                <div className="card-body p-6">
+              <div className="card bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-100 shadow-xl hover:shadow-2xl transition-all duration-300" style={{ borderRadius: '16px' }}>
+                <div className="card-body p-5">
                   <div className="flex items-center mb-4">
-                    <span className="text-2xl mr-3">📞</span>
-                    <h3 className="text-xl font-bold text-gray-800">Primary Contact</h3>
+                    <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center mr-3">
+                      <span className="text-white text-lg">📞</span>
+                    </div>
+                    <h3 className="text-lg font-bold text-gray-800">Primary Contact</h3>
                   </div>
-                  <div className="space-y-3">
-                    <div className="flex items-start">
-                      <span className="text-blue-500 mr-3 mt-1">📧</span>
-                      <div>
-                        <p className="font-medium">General Inquiries</p>
-                        <p className="text-sm text-gray-600">info@loanlink.com</p>
+                  <div className="grid grid-cols-1 gap-3">
+                    <div className="flex items-center p-2 bg-white rounded-lg shadow-sm">
+                      <span className="text-blue-500 mr-3">📧</span>
+                      <div className="flex-1">
+                        <p className="font-medium text-sm">General Inquiries</p>
+                        <p className="text-xs text-gray-600">info@loanlink.com</p>
                       </div>
                     </div>
-                    <div className="flex items-start">
-                      <span className="text-green-500 mr-3 mt-1">🛠️</span>
-                      <div>
-                        <p className="font-medium">Customer Support</p>
-                        <p className="text-sm text-gray-600">support@loanlink.com</p>
+                    <div className="flex items-center p-2 bg-white rounded-lg shadow-sm">
+                      <span className="text-green-500 mr-3">🛠️</span>
+                      <div className="flex-1">
+                        <p className="font-medium text-sm">Customer Support</p>
+                        <p className="text-xs text-gray-600">support@loanlink.com</p>
                       </div>
                     </div>
-                    <div className="flex items-start">
-                      <span className="text-purple-500 mr-3 mt-1">📞</span>
-                      <div>
-                        <p className="font-medium">Phone Support</p>
-                        <p className="text-sm text-gray-600">+1 (555) 123-4567</p>
+                    <div className="flex items-center p-2 bg-white rounded-lg shadow-sm">
+                      <span className="text-purple-500 mr-3">📞</span>
+                      <div className="flex-1">
+                        <p className="font-medium text-sm">Phone Support</p>
+                        <p className="text-xs text-gray-600">+1 (555) 123-4567</p>
                       </div>
                     </div>
-                    <div className="flex items-start">
-                      <span className="text-red-500 mr-3 mt-1">🆘</span>
-                      <div>
-                        <p className="font-medium">Technical Support</p>
-                        <p className="text-sm text-gray-600">+1 (555) 987-6543</p>
+                    <div className="flex items-center p-2 bg-white rounded-lg shadow-sm">
+                      <span className="text-red-500 mr-3">🆘</span>
+                      <div className="flex-1">
+                        <p className="font-medium text-sm">Technical Support</p>
+                        <p className="text-xs text-gray-600">+1 (555) 987-6543</p>
                       </div>
                     </div>
                   </div>
@@ -164,49 +166,63 @@ const Contact = () => {
               </div>
 
               {/* Office Address */}
-              <div className="card bg-white shadow-xl" style={{ borderRadius: '16px' }}>
-                <div className="card-body p-6">
+              <div className="card bg-gradient-to-br from-green-50 to-emerald-50 border border-green-100 shadow-xl hover:shadow-2xl transition-all duration-300" style={{ borderRadius: '16px' }}>
+                <div className="card-body p-5">
                   <div className="flex items-center mb-4">
-                    <span className="text-2xl mr-3">📍</span>
-                    <h3 className="text-xl font-bold text-gray-800">Office Address</h3>
+                    <div className="w-10 h-10 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center mr-3">
+                      <span className="text-white text-lg">📍</span>
+                    </div>
+                    <h3 className="text-lg font-bold text-gray-800">Office Address</h3>
                   </div>
-                  <div className="space-y-2">
-                    <p className="text-gray-700">LoanLink Financial Services</p>
-                    <p className="text-gray-600">123 Finance Street, Suite 456</p>
-                    <p className="text-gray-600">Business District, BD 12345</p>
-                    <p className="text-gray-600">Dhaka, Bangladesh</p>
-                  </div>
-                  <div className="mt-4">
-                    <iframe 
-                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.906193362!2d90.39744831498!3d23.750895084588678!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b8b087026b81%3A0x8fa563bbdd5904c2!2sDhaka%2C%20Bangladesh!5e0!3m2!1sen!2sbd!4v1635789012345!5m2!1sen!2sbd"
-                      width="100%" 
-                      height="200" 
-                      style={{ border: 0, borderRadius: '8px' }}
-                      allowFullScreen="" 
-                      loading="lazy" 
-                      referrerPolicy="no-referrer-when-downgrade"
-                      title="LoanLink Office Location"
-                    ></iframe>
-                    <div className="mt-2 text-center">
-                      <a 
-                        href="https://maps.google.com/?q=Dhaka,Bangladesh" 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="text-blue-600 hover:text-blue-800 text-sm font-medium"
-                      >
-                        🗺️ View in Google Maps
-                      </a>
+                  
+                  <div className="flex flex-col lg:flex-row gap-4">
+                    {/* Address Info */}
+                    <div className="flex-1">
+                      <div className="space-y-2">
+                        <p className="text-gray-700 font-semibold">LoanLink Financial Services</p>
+                        <p className="text-gray-600">123 Finance Street, Suite 456</p>
+                        <p className="text-gray-600">Business District, BD 12345</p>
+                        <p className="text-gray-600">Dhaka, Bangladesh</p>
+                      </div>
+                      
+                      <div className="mt-4">
+                        <a 
+                          href="https://maps.google.com/?q=Dhaka,Bangladesh" 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="btn btn-outline btn-sm"
+                          style={{ borderRadius: '8px' }}
+                        >
+                          🗺️ View in Google Maps
+                        </a>
+                      </div>
+                    </div>
+                    
+                    {/* Map */}
+                    <div className="flex-1">
+                      <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.906193362!2d90.39744831498!3d23.750895084588678!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b8b087026b81%3A0x8fa563bbdd5904c2!2sDhaka%2C%20Bangladesh!5e0!3m2!1sen!2sbd!4v1635789012345!5m2!1sen!2sbd"
+                        width="100%" 
+                        height="150" 
+                        style={{ border: 0, borderRadius: '8px' }}
+                        allowFullScreen="" 
+                        loading="lazy" 
+                        referrerPolicy="no-referrer-when-downgrade"
+                        title="LoanLink Office Location"
+                      ></iframe>
                     </div>
                   </div>
                 </div>
               </div>
 
               {/* Business Hours */}
-              <div className="card bg-white shadow-xl" style={{ borderRadius: '16px' }}>
-                <div className="card-body p-6">
+              <div className="card bg-gradient-to-br from-orange-50 to-amber-50 border border-orange-100 shadow-xl hover:shadow-2xl transition-all duration-300" style={{ borderRadius: '16px' }}>
+                <div className="card-body p-5">
                   <div className="flex items-center mb-4">
-                    <span className="text-2xl mr-3">🕒</span>
-                    <h3 className="text-xl font-bold text-gray-800">Business Hours</h3>
+                    <div className="w-10 h-10 bg-gradient-to-r from-orange-500 to-amber-500 rounded-full flex items-center justify-center mr-3">
+                      <span className="text-white text-lg">🕒</span>
+                    </div>
+                    <h3 className="text-lg font-bold text-gray-800">Business Hours</h3>
                   </div>
                   <div className="space-y-2">
                     <div className="flex justify-between">
@@ -229,11 +245,13 @@ const Contact = () => {
               </div>
 
               {/* Additional Support */}
-              <div className="card bg-white shadow-xl" style={{ borderRadius: '16px' }}>
-                <div className="card-body p-6">
+              <div className="card bg-gradient-to-br from-purple-50 to-pink-50 border border-purple-100 shadow-xl hover:shadow-2xl transition-all duration-300" style={{ borderRadius: '16px' }}>
+                <div className="card-body p-5">
                   <div className="flex items-center mb-4">
-                    <span className="text-2xl mr-3">💬</span>
-                    <h3 className="text-xl font-bold text-gray-800">Additional Support</h3>
+                    <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mr-3">
+                      <span className="text-white text-lg">💬</span>
+                    </div>
+                    <h3 className="text-lg font-bold text-gray-800">Additional Support</h3>
                   </div>
                   <div className="space-y-3">
                     <button className="btn btn-outline btn-sm w-full" style={{ borderRadius: '8px' }}>
@@ -255,10 +273,12 @@ const Contact = () => {
               </div>
 
               {/* Grievance */}
-              <div className="card bg-yellow-50 border border-yellow-200 shadow-xl" style={{ borderRadius: '16px' }}>
-                <div className="card-body p-6">
+              <div className="card bg-gradient-to-br from-yellow-50 to-orange-50 border border-yellow-200 shadow-xl hover:shadow-2xl transition-all duration-300" style={{ borderRadius: '16px' }}>
+                <div className="card-body p-5">
                   <div className="flex items-center mb-3">
-                    <span className="text-2xl mr-3">⚖️</span>
+                    <div className="w-10 h-10 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full flex items-center justify-center mr-3">
+                      <span className="text-white text-lg">⚖️</span>
+                    </div>
                     <h3 className="text-lg font-bold text-yellow-800">Grievance & Feedback</h3>
                   </div>
                   <p className="text-sm text-yellow-700 mb-3">
