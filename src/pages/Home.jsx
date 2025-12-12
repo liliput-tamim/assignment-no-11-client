@@ -100,39 +100,126 @@ const Home = () => {
       </section>
 
       {/* How It Works */}
-      <section className="bg-base-200 py-16">
-        <div className="container mx-auto px-4">
-          <motion.h2 
-            initial={{ opacity: 0 }} 
-            whileInView={{ opacity: 1 }} 
+      <section className="bg-gradient-to-br from-base-200 via-base-100 to-base-200 py-20 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-secondary/5"></div>
+        <div className="container mx-auto px-4 relative z-10">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }} 
+            whileInView={{ opacity: 1, y: 0 }} 
             viewport={{ once: true }}
-            className="text-4xl font-bold text-center mb-12"
+            className="text-center mb-16"
           >
-            How It Works
-          </motion.h2>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            {[
-              { step: "1", title: "Register", desc: "Create your account" },
-              { step: "2", title: "Apply", desc: "Fill loan application" },
-              { step: "3", title: "Review", desc: "We verify your details" },
-              { step: "4", title: "Receive", desc: "Get funds approved" },
-            ].map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.15 }}
-                className="text-center"
-              >
-                <div className="w-20 h-20 bg-primary text-white rounded-full flex items-center justify-center text-3xl font-bold mx-auto mb-4">
-                  {item.step}
-                </div>
-                <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
-                <p className="text-gray-600">{item.desc}</p>
-              </motion.div>
-            ))}
+            <h2 className="text-5xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-4">
+              Your Journey to Financial Freedom
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Experience our streamlined process designed to get you the funds you need, when you need them
+            </p>
+          </motion.div>
+
+          <div className="relative">
+            {/* Connection Line */}
+            <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-1 bg-gradient-to-r from-primary via-secondary to-accent transform -translate-y-1/2 z-0"></div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
+              {[
+                { 
+                  step: "01", 
+                  icon: "🚀", 
+                  title: "Quick Registration", 
+                  desc: "Sign up in under 2 minutes with just your email and basic info",
+                  color: "from-blue-500 to-cyan-500",
+                  bgColor: "from-blue-50 to-cyan-50"
+                },
+                { 
+                  step: "02", 
+                  icon: "📋", 
+                  title: "Smart Application", 
+                  desc: "Our AI-powered form adapts to your needs for faster completion",
+                  color: "from-purple-500 to-pink-500",
+                  bgColor: "from-purple-50 to-pink-50"
+                },
+                { 
+                  step: "03", 
+                  icon: "⚡", 
+                  title: "Instant Verification", 
+                  desc: "Advanced algorithms verify your details in real-time for quick decisions",
+                  color: "from-orange-500 to-red-500",
+                  bgColor: "from-orange-50 to-red-50"
+                },
+                { 
+                  step: "04", 
+                  icon: "💰", 
+                  title: "Secure Transfer", 
+                  desc: "Funds deposited directly to your account within 24 hours of approval",
+                  color: "from-green-500 to-emerald-500",
+                  bgColor: "from-green-50 to-emerald-50"
+                },
+              ].map((item, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.2, duration: 0.6 }}
+                  whileHover={{ y: -10, scale: 1.02 }}
+                  className={`relative bg-gradient-to-br ${item.bgColor} rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 border border-white/50`}
+                >
+                  {/* Step Number Badge */}
+                  <div className="absolute -top-4 -right-4 w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center border-4 border-gray-100">
+                    <span className="text-sm font-bold text-gray-700">{item.step}</span>
+                  </div>
+                  
+                  {/* Icon */}
+                  <div className={`w-20 h-20 bg-gradient-to-r ${item.color} rounded-2xl flex items-center justify-center text-4xl mb-6 mx-auto shadow-lg transform rotate-3 hover:rotate-0 transition-transform duration-300`}>
+                    {item.icon}
+                  </div>
+                  
+                  {/* Content */}
+                  <div className="text-center">
+                    <h3 className="text-2xl font-bold mb-3 text-gray-800">{item.title}</h3>
+                    <p className="text-gray-600 leading-relaxed">{item.desc}</p>
+                  </div>
+                  
+                  {/* Progress Indicator */}
+                  <div className="mt-6 flex justify-center">
+                    <div className="flex space-x-1">
+                      {[...Array(4)].map((_, i) => (
+                        <div 
+                          key={i} 
+                          className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                            i <= index ? `bg-gradient-to-r ${item.color}` : 'bg-gray-300'
+                          }`}
+                        ></div>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
+
+          {/* Call to Action */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.8 }}
+            className="text-center mt-16"
+          >
+            <div className="bg-white rounded-2xl p-8 shadow-xl border border-gray-100 max-w-2xl mx-auto">
+              <h3 className="text-2xl font-bold mb-4 text-gray-800">Ready to Get Started?</h3>
+              <p className="text-gray-600 mb-6">Join over 10,000+ satisfied customers who trust LoanLink for their financial needs</p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link to="/register" className="btn btn-primary btn-lg shadow-lg hover:shadow-xl transition-all duration-300">
+                  🚀 Start Your Application
+                </Link>
+                <Link to="/all-loans" className="btn btn-outline btn-lg hover:shadow-lg transition-all duration-300">
+                  📋 Browse Loan Options
+                </Link>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
