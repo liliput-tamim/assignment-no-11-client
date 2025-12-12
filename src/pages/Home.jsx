@@ -66,36 +66,166 @@ const Home = () => {
       </motion.section>
 
       {/* Available Loans */}
-      <section className="container mx-auto px-4 py-16">
-        <motion.h2 
-          initial={{ opacity: 0, y: 20 }} 
-          whileInView={{ opacity: 1, y: 0 }} 
-          viewport={{ once: true }}
-          className="text-4xl font-bold text-center mb-12"
-        >
-          Available Loan Options
-        </motion.h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {loans.map((loan, index) => (
-            <motion.div
-              key={loan._id}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow"
-            >
-              <figure><img src={loan.image} alt={loan.title} className="h-48 w-full object-cover" /></figure>
-              <div className="card-body">
-                <h3 className="card-title">{loan.title}</h3>
-                <p>{loan.description?.substring(0, 80)}...</p>
-                <p className="font-semibold text-primary">Max Loan: ${loan.maxLoan}</p>
-                <div className="card-actions justify-end">
-                  <Link to={`/loan/${loan._id}`} className="btn btn-primary btn-sm">View Details</Link>
-                </div>
+      <section className="bg-gradient-to-br from-gray-50 via-white to-gray-50 py-20 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/3 to-secondary/3"></div>
+        <div className="container mx-auto px-4 relative z-10">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }} 
+            whileInView={{ opacity: 1, y: 0 }} 
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-5xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-4">
+              💰 Discover Your Perfect Loan
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+              Choose from our carefully curated selection of loan products, each designed to meet your unique financial needs
+            </p>
+            
+            {/* Stats Bar */}
+            <div className="flex flex-wrap justify-center gap-8 mb-8">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-primary">{loans.length}+</div>
+                <div className="text-sm text-gray-600">Loan Options</div>
               </div>
-            </motion.div>
-          ))}
+              <div className="text-center">
+                <div className="text-3xl font-bold text-secondary">24hrs</div>
+                <div className="text-sm text-gray-600">Quick Approval</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-accent">2.5%</div>
+                <div className="text-sm text-gray-600">Starting Rate</div>
+              </div>
+            </div>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {loans.map((loan, index) => {
+              const gradients = [
+                'from-blue-500 to-cyan-500',
+                'from-purple-500 to-pink-500', 
+                'from-green-500 to-emerald-500',
+                'from-orange-500 to-red-500',
+                'from-indigo-500 to-purple-500',
+                'from-teal-500 to-blue-500'
+              ];
+              const bgGradients = [
+                'from-blue-50 to-cyan-50',
+                'from-purple-50 to-pink-50',
+                'from-green-50 to-emerald-50', 
+                'from-orange-50 to-red-50',
+                'from-indigo-50 to-purple-50',
+                'from-teal-50 to-blue-50'
+              ];
+              const gradient = gradients[index % gradients.length];
+              const bgGradient = bgGradients[index % bgGradients.length];
+              
+              return (
+                <motion.div
+                  key={loan._id}
+                  initial={{ opacity: 0, y: 50, scale: 0.9 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.15, duration: 0.6 }}
+                  whileHover={{ y: -8, scale: 1.02 }}
+                  className={`relative bg-gradient-to-br ${bgGradient} rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/50 overflow-hidden group`}
+                >
+                  {/* Popular Badge */}
+                  {index < 2 && (
+                    <div className="absolute top-4 right-4 z-20">
+                      <span className={`bg-gradient-to-r ${gradient} text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg`}>
+                        {index === 0 ? '🔥 POPULAR' : '⭐ FEATURED'}
+                      </span>
+                    </div>
+                  )}
+                  
+                  {/* Image with Overlay */}
+                  <div className="relative overflow-hidden rounded-t-3xl">
+                    <img 
+                      src={loan.image || "https://via.placeholder.com/400x200/667eea/ffffff?text=Loan+Image"} 
+                      alt={loan.title} 
+                      className="h-48 w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      onError={(e) => {
+                        e.target.src = "https://via.placeholder.com/400x200/667eea/ffffff?text=Loan+Image";
+                      }}
+                    />
+                    <div className={`absolute inset-0 bg-gradient-to-t ${gradient} opacity-20 group-hover:opacity-30 transition-opacity duration-300`}></div>
+                    
+                    {/* Interest Rate Badge */}
+                    <div className="absolute bottom-4 left-4">
+                      <div className="bg-white/90 backdrop-blur-sm rounded-full px-3 py-1 shadow-lg">
+                        <span className="text-sm font-bold text-gray-800">{loan.interestRate}% APR</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Content */}
+                  <div className="p-6">
+                    <div className="flex items-start justify-between mb-3">
+                      <h3 className="text-xl font-bold text-gray-800 group-hover:text-gray-900 transition-colors">
+                        {loan.title}
+                      </h3>
+                      <div className={`w-8 h-8 bg-gradient-to-r ${gradient} rounded-full flex items-center justify-center shadow-lg`}>
+                        <span className="text-white text-sm">💳</span>
+                      </div>
+                    </div>
+                    
+                    <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+                      {loan.description?.substring(0, 80)}...
+                    </p>
+                    
+                    {/* Loan Details */}
+                    <div className="space-y-2 mb-6">
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-gray-500">Max Amount:</span>
+                        <span className="font-bold text-lg text-gray-800">${loan.maxLoan?.toLocaleString()}</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-gray-500">Category:</span>
+                        <span className={`px-2 py-1 bg-gradient-to-r ${gradient} text-white text-xs rounded-full font-medium`}>
+                          {loan.category}
+                        </span>
+                      </div>
+                    </div>
+                    
+                    {/* Action Button */}
+                    <Link 
+                      to={`/loan/${loan._id}`} 
+                      className={`w-full btn bg-gradient-to-r ${gradient} text-white border-0 hover:shadow-xl transition-all duration-300 group-hover:scale-105`}
+                    >
+                      <span className="flex items-center justify-center gap-2">
+                        <span>View Details</span>
+                        <span className="transform group-hover:translate-x-1 transition-transform">→</span>
+                      </span>
+                    </Link>
+                  </div>
+                  
+                  {/* Decorative Elements */}
+                  <div className="absolute -bottom-2 -right-2 w-20 h-20 bg-white/10 rounded-full blur-xl"></div>
+                  <div className="absolute -top-2 -left-2 w-16 h-16 bg-white/10 rounded-full blur-lg"></div>
+                </motion.div>
+              );
+            })}
+          </div>
+          
+          {/* View All Button */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.8 }}
+            className="text-center mt-12"
+          >
+            <Link 
+              to="/all-loans" 
+              className="btn btn-outline btn-lg hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:text-white hover:border-transparent transition-all duration-300 shadow-lg hover:shadow-xl"
+            >
+              <span className="flex items-center gap-2">
+                <span>🔍 Explore All Loan Options</span>
+                <span className="transform group-hover:translate-x-1 transition-transform">→</span>
+              </span>
+            </Link>
+          </motion.div>
         </div>
       </section>
 
