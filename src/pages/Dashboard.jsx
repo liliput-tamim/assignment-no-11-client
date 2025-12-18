@@ -16,21 +16,27 @@ const Dashboard = () => {
         .then(data => {
           setUserRole(data?.role);
           setLoading(false);
+        })
+        .catch(err => {
+          console.error('Error fetching user role:', err);
+          setLoading(false);
         });
       
       Promise.all([
-        fetch('http://localhost:4000/loans').then(r => r.json()),
-        fetch('http://localhost:4000/applications').then(r => r.json()),
-        fetch('http://localhost:4000/users').then(r => r.json())
+        fetch('http://localhost:4000/loans').then(r => r.json()).catch(() => []),
+        fetch('http://localhost:4000/applications').then(r => r.json()).catch(() => []),
+        fetch('http://localhost:4000/users').then(r => r.json()).catch(() => [])
       ]).then(([loans, apps, users]) => {
         setStats({
-          loans: loans.length,
-          applications: apps.length,
-          users: users.length,
-          approved: apps.filter(a => a.status === 'approved').length,
-          pending: apps.filter(a => a.status === 'pending').length,
-          rejected: apps.filter(a => a.status === 'rejected').length
+          loans: loans?.length || 0,
+          applications: apps?.length || 0,
+          users: users?.length || 0,
+          approved: apps?.filter(a => a.status === 'approved')?.length || 0,
+          pending: apps?.filter(a => a.status === 'pending')?.length || 0,
+          rejected: apps?.filter(a => a.status === 'rejected')?.length || 0
         });
+      }).catch(err => {
+        console.error('Error fetching dashboard stats:', err);
       });
     }
   }, [user]);

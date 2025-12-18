@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import StripePayment from "../../components/StripePayment";
 
 const PendingApplications = () => {
   const [applications, setApplications] = useState([]);
@@ -48,6 +49,7 @@ const PendingApplications = () => {
               <th>Loan Title</th>
               <th>Amount</th>
               <th>Applied Date</th>
+              <th>Fee Status</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -61,10 +63,25 @@ const PendingApplications = () => {
                 <td>{app.loanTitle}</td>
                 <td>${app.loanAmount}</td>
                 <td>{new Date(app.appliedDate).toLocaleDateString()}</td>
+                <td>
+                  <span className={`badge ${app.applicationFeeStatus === 'paid' ? 'badge-success' : 'badge-warning'}`}>
+                    {app.applicationFeeStatus === 'paid' ? 'Paid' : 'Unpaid'}
+                  </span>
+                </td>
                 <td className="space-x-2">
                   <button onClick={() => setViewApp(app)} className="btn btn-sm btn-info">View</button>
-                  <button onClick={() => handleApprove(app._id)} className="btn btn-sm btn-success">Approve</button>
-                  <button onClick={() => handleReject(app._id)} className="btn btn-sm btn-error">Reject</button>
+                  {app.applicationFeeStatus === 'unpaid' && (
+                    <StripePayment 
+                      applicationId={app._id} 
+                      onPaymentSuccess={() => window.location.reload()}
+                    />
+                  )}
+                  {app.applicationFeeStatus === 'paid' && (
+                    <>
+                      <button onClick={() => handleApprove(app._id)} className="btn btn-sm btn-success">Approve</button>
+                      <button onClick={() => handleReject(app._id)} className="btn btn-sm btn-error">Reject</button>
+                    </>
+                  )}
                 </td>
               </tr>
             ))}

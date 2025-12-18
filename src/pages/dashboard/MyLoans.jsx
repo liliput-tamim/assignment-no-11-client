@@ -1,12 +1,14 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { toast } from "react-toastify";
+import PaymentModal from "../../components/PaymentModal";
 
 const MyLoans = () => {
   const { user } = useContext(AuthContext);
   const [applications, setApplications] = useState([]);
   const [viewApp, setViewApp] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [paymentModal, setPaymentModal] = useState({ show: false, appId: null });
 
   useEffect(() => {
     if (user) {
@@ -34,19 +36,16 @@ const MyLoans = () => {
     }
   };
 
-  const handlePay = (id) => {
-    fetch(`http://localhost:4000/applications/${id}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ applicationFeeStatus: "paid" })
-    })
+  const openPaymentModal = (appId) => {
+    setPaymentModal({ show: true, appId });
+  };
+
+  const closePaymentModal = () => {
+    setPaymentModal({ show: false, appId: null });
+    // Refresh applications to get updated payment status
+    fetch(`http://localhost:4000/applications?userEmail=${user.email}`)
       .then(res => res.json())
-      .then(() => {
-        toast.success("Payment successful!");
-        setApplications(applications.map(app => 
-          app._id === id ? { ...app, applicationFeeStatus: "paid" } : app
-        ));
-      });
+      .then(data => setApplications(data));
   };
 
   if (loading) {
@@ -93,9 +92,9 @@ const MyLoans = () => {
                     <button onClick={() => handleCancel(app._id)} className="btn btn-sm btn-error">Cancel</button>
                   )}
                   {app.applicationFeeStatus === "unpaid" ? (
-                    <button onClick={() => handlePay(app._id)} className="btn btn-sm btn-success">Pay</button>
+                    <button onClick={() => openPaymentModal(app._id)} className="btn btn-sm btn-success">💳 Pay $10</button>
                   ) : (
-                    <span className="badge badge-success">Paid</span>
+                    <span className="badge badge-success">✅ Paid</span>
                   )}
                 </td>
               </tr>
@@ -123,6 +122,13 @@ const MyLoans = () => {
           </div>
         </dialog>
       )}
+
+      <PaymentModal 
+        isOpen={paymentModal.show}
+        onClose={closePaymentModal}
+        applicationId={paymentModal.appId}
+        amount={10}
+      />
     </div>
   );
 };

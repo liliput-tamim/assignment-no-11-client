@@ -17,7 +17,15 @@ const Login = () => {
         navigate("/");
       })
       .catch((error) => {
-        toast.error(error.message || "Invalid email or password");
+        if (error.code === 'auth/invalid-credential') {
+          toast.error("Invalid email or password. Please check your credentials or register first.");
+        } else if (error.code === 'auth/user-not-found') {
+          toast.error("No account found with this email. Please register first.");
+        } else if (error.code === 'auth/wrong-password') {
+          toast.error("Incorrect password. Please try again.");
+        } else {
+          toast.error(error.message || "Login failed");
+        }
       });
   };
 

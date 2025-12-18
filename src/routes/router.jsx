@@ -21,6 +21,9 @@ import ApprovedApplications from "../pages/dashboard/ApprovedApplications";
 import MyProfile from "../pages/dashboard/MyProfile";
 import MyLoans from "../pages/dashboard/MyLoans";
 import Profile from "../pages/dashboard/Profile";
+import PaymentSuccess from "../pages/PaymentSuccess";
+import AdminRoute from "../components/AdminRoute";
+import ManagerRoute from "../components/ManagerRoute";
 import NotFound from "../pages/NotFound";
 
 export const router = createBrowserRouter([
@@ -60,6 +63,10 @@ export const router = createBrowserRouter([
         path: "/apply",
         element: <PrivateRoute><LoanApplication /></PrivateRoute>,
       },
+      {
+        path: "/payment-success",
+        element: <PaymentSuccess />,
+      },
     ],
   },
   {
@@ -72,31 +79,31 @@ export const router = createBrowserRouter([
       },
       {
         path: "/dashboard/manage-users",
-        element: <ManageUsers />,
+        element: <AdminRoute><ManageUsers /></AdminRoute>,
       },
       {
         path: "/dashboard/all-loans",
-        element: <AllLoansAdmin />,
+        element: <AdminRoute><AllLoansAdmin /></AdminRoute>,
       },
       {
         path: "/dashboard/loan-applications",
-        element: <LoanApplicationsAdmin />,
+        element: <AdminRoute><LoanApplicationsAdmin /></AdminRoute>,
       },
       {
         path: "/dashboard/add-loan",
-        element: <AddLoan />,
+        element: <ManagerRoute><AddLoan /></ManagerRoute>,
       },
       {
         path: "/dashboard/manage-loans",
-        element: <ManageLoans />,
+        element: <ManagerRoute><ManageLoans /></ManagerRoute>,
       },
       {
         path: "/dashboard/pending-applications",
-        element: <PendingApplications />,
+        element: <ManagerRoute><PendingApplications /></ManagerRoute>,
       },
       {
         path: "/dashboard/approved-applications",
-        element: <ApprovedApplications />,
+        element: <ManagerRoute><ApprovedApplications /></ManagerRoute>,
       },
       {
         path: "/dashboard/my-profile",

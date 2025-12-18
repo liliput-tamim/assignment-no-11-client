@@ -6,7 +6,11 @@ import Cookies from "js-cookie";
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(() => {
+    // Check localStorage for user data on initial load
+    const savedUser = localStorage.getItem('loanlink_user');
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
   const [loading, setLoading] = useState(true);
 
   const googleProvider = new GoogleAuthProvider();
@@ -44,8 +48,16 @@ const AuthProvider = ({ children }) => {
       if (currentUser) {
         const token = await currentUser.getIdToken();
         Cookies.set('authToken', token, { expires: 7 });
+        // Save user to localStorage
+        localStorage.setItem('loanlink_user', JSON.stringify({
+          uid: currentUser.uid,
+          email: currentUser.email,
+          displayName: currentUser.displayName,
+          photoURL: currentUser.photoURL
+        }));
       } else {
         Cookies.remove('authToken');
+        localStorage.removeItem('loanlink_user');
       }
       setLoading(false);
     });

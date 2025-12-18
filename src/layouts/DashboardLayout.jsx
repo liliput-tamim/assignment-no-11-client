@@ -24,6 +24,14 @@ const DashboardLayout = () => {
     });
   };
 
+  const adminLinks = [
+    { to: "/dashboard", icon: "🏠", label: "Dashboard", desc: "Overview & Analytics" },
+    { to: "/dashboard/manage-users", icon: "👥", label: "Manage Users", desc: "User Management" },
+    { to: "/dashboard/all-loans", icon: "💰", label: "All Loans", desc: "Loan Overview" },
+    { to: "/dashboard/loan-applications", icon: "📋", label: "Loan Applications", desc: "Application Management" },
+    { to: "/dashboard/profile", icon: "👤", label: "My Profile", desc: "Account Settings" },
+  ];
+
   const managerLinks = [
     { to: "/dashboard", icon: "🏠", label: "Dashboard" },
     { to: "/dashboard/add-loan", icon: "➕", label: "Add Loan" },
@@ -34,12 +42,13 @@ const DashboardLayout = () => {
   ];
 
   const borrowerLinks = [
-    { to: "/dashboard", icon: "🏠", label: "Dashboard" },
-    { to: "/dashboard/my-loans", icon: "💰", label: "My Loans" },
-    { to: "/dashboard/profile", icon: "👤", label: "My Profile" },
+    { to: "/dashboard", icon: "🏠", label: "Dashboard", desc: "Overview & Stats" },
+    { to: "/dashboard/my-loans", icon: "💰", label: "My Loans", desc: "View & Manage Applications" },
+    { to: "/dashboard/profile", icon: "👤", label: "My Profile", desc: "Account Settings" },
+    { to: "/all-loans", icon: "🔍", label: "Browse Loans", desc: "Find New Opportunities" },
   ];
 
-  const links = userRole === "manager" ? managerLinks : borrowerLinks;
+  const links = userRole === "admin" ? adminLinks : userRole === "manager" ? managerLinks : borrowerLinks;
 
   return (
     <div className="min-h-screen bg-base-200">
@@ -101,11 +110,16 @@ const DashboardLayout = () => {
                 <Link
                   key={link.to}
                   to={link.to}
-                  className="flex items-center gap-3 p-3 rounded-lg hover:bg-base-200 transition-colors"
+                  className="flex items-center gap-3 p-3 rounded-lg hover:bg-gradient-to-r hover:from-primary/10 hover:to-secondary/10 transition-all duration-200 group"
                   onClick={() => setSidebarOpen(false)}
                 >
-                  <span className="text-xl">{link.icon}</span>
-                  <span>{link.label}</span>
+                  <div className="w-10 h-10 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-lg flex items-center justify-center group-hover:from-primary/30 group-hover:to-secondary/30 transition-all">
+                    <span className="text-lg">{link.icon}</span>
+                  </div>
+                  <div className="flex-1">
+                    <div className="font-medium text-sm">{link.label}</div>
+                    {link.desc && <div className="text-xs text-gray-500">{link.desc}</div>}
+                  </div>
                 </Link>
               ))}
             </nav>
